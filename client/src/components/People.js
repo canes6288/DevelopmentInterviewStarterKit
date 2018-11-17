@@ -1,8 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 import axios from 'axios';
 
-import ReactTable from "react-table";
+import ReactTable from 'react-table';
+import CharacterFrequency from './CharacterFrequency';
 
 const FlexBox = styled.div`
   display: flex;
@@ -10,29 +11,33 @@ const FlexBox = styled.div`
   justify-content: center;
   flex-flow: column nowrap;
   margin-top: 30px;
-`
+`;
 
 const Logo = () => (
   <FlexBox>
-    <img src="/logo.svg" />
+    <img src="/logo.svg" alt="logo" />
     <h1>SalesLoft Developer Interview Kit</h1>
   </FlexBox>
-)
+);
 
-const columns = [{
+const columns = [
+  {
     Header: 'Name',
     accessor: 'display_name' // String-based value accessors!
-  }, {
+  },
+  {
     Header: 'Email',
     accessor: 'email_address'
-  }, {
+  },
+  {
     Header: 'Job Title',
     accessor: 'title'
-  }]
+  }
+];
 
-class PeopleList extends React.Component {
+class People extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       people: []
@@ -40,29 +45,24 @@ class PeopleList extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/api/people')
-    .then(data => {
-      let people = data.data.data
+    axios.get('/api/people').then(data => {
+      let people = data.data.data;
 
       this.setState({
         people: people
       });
-    })
+    });
   }
 
   render() {
-    return(
-      <ReactTable
-        data={this.state.people}
-        columns={columns}
-      />
-    )
+    return (
+      <div>
+        <Logo />
+        <CharacterFrequency className="hidden" people={this.state.people} />
+        <ReactTable data={this.state.people} columns={columns} />
+      </div>
+    );
   }
 }
 
-export const People = () => (
-  <div>
-    <Logo />
-    <PeopleList />
-  </div>
-);
+export default People;

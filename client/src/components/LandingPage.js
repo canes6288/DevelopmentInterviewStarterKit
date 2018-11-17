@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
-import { ConnectedNavBar } from '../containers/ConnectedNavBar'
-import { People } from './People'
+import { ConnectedNavBar } from '../containers/ConnectedNavBar';
+import People from './People';
 
 const Page = styled.div`
   display: grid;
