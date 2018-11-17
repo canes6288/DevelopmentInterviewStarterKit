@@ -1,22 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import axios from 'axios';
 
 import ReactTable from 'react-table';
-import CharacterFrequency from './CharacterFrequency';
+import CharacterFrequencyTable from './CharacterFrequencyTable';
 import { Grid, Row, Col } from 'react-bootstrap';
-
-const Logo = () => (
-  <div>
-    <img src="/logo.svg" alt="logo" style={{ width: '500px' }} />
-    <h1>SalesLoft Developer Interview Kit</h1>
-  </div>
-);
+import Logo from './Logo';
 
 const columns = [
   {
     Header: 'Name',
-    accessor: 'display_name' // String-based value accessors!
+    accessor: 'display_name'
   },
   {
     Header: 'Email',
@@ -50,17 +43,26 @@ class People extends React.Component {
   render() {
     return (
       <Grid>
-        <Row className="show-grid centered">
+        <Row className="logo centered">
           <Col xs={12} md={12} lg={12}>
             <Logo />
           </Col>
         </Row>
-        <Row className="show-grid">
-          <Col xs={4} md={4} lg={6}>
-            <CharacterFrequency className="hidden" people={this.state.people} />
-          </Col>
-          <Col xs={4} md={4} lg={6}>
+        <Row className="tables">
+          <Col xs={6} md={4} lg={4}>
             <ReactTable data={this.state.people} columns={columns} />
+          </Col>
+          <Col xs={6} md={4} lg={4}>
+            <CharacterFrequencyTable
+              className="hidden"
+              people={this.state.people}
+            />
+          </Col>
+          <Col xs={6} md={4} lg={4}>
+            <CharacterFrequencyTable
+              className="hidden"
+              people={this.state.people}
+            />
           </Col>
         </Row>
       </Grid>

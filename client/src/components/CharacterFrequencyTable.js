@@ -1,23 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import sortBy from 'lodash/sortBy';
-
 import ReactTable from 'react-table';
-
-const Button = styled.div`
-  margin: 3px;
-  display: flex;
-  min-width: 152px;
-  align-items: center;
-  overflow: hidden;
-  border-radius: 7px;
-  border 2px solid #DCDCDC;
-  justify-content: center;
-  font-size: 25px;
-  font-weight: bold;
-  color: #000000
-  background-color: #FFFFFF;
-`;
+import Button from './Button';
 
 const columns = [
   {
@@ -30,7 +14,7 @@ const columns = [
   }
 ];
 
-class CharacterFrequency extends React.Component {
+class CharacterFrequencyTable extends React.Component {
   constructor(props) {
     super(props);
 
@@ -48,24 +32,7 @@ class CharacterFrequency extends React.Component {
   }
 
   render() {
-    const CharacterFrequencyButton = () => (
-      <Button className={this.state.showFrequencyTable ? 'hidden' : ''}>
-        <div
-          onClick={this.handleIndexClick}
-          role="show email character frequency table"
-          style={{
-            textDecoration: 'none',
-            color: '#000000',
-            cursor: 'pointer'
-          }}
-        >
-          Show Email Character Frequency
-        </div>
-      </Button>
-    );
-
     const { people } = this.props;
-
     const counter = {};
 
     people
@@ -88,7 +55,11 @@ class CharacterFrequency extends React.Component {
 
     return (
       <div>
-        <CharacterFrequencyButton />
+        <Button
+          onClick={this.handleIndexClick}
+          className={this.state.showFrequencyTable ? 'hidden' : ''}
+          text="Show Email Character Frequency"
+        />
         <ReactTable
           className={this.state.showFrequencyTable ? '' : 'hidden'}
           data={data}
@@ -99,4 +70,4 @@ class CharacterFrequency extends React.Component {
   }
 }
 
-export default CharacterFrequency;
+export default CharacterFrequencyTable;
