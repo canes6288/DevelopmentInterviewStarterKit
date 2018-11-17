@@ -4,20 +4,13 @@ import axios from 'axios';
 
 import ReactTable from 'react-table';
 import CharacterFrequency from './CharacterFrequency';
-
-const FlexBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column nowrap;
-  margin-top: 30px;
-`;
+import { Grid, Row, Col } from 'react-bootstrap';
 
 const Logo = () => (
-  <FlexBox>
-    <img src="/logo.svg" alt="logo" />
+  <div>
+    <img src="/logo.svg" alt="logo" style={{ width: '500px' }} />
     <h1>SalesLoft Developer Interview Kit</h1>
-  </FlexBox>
+  </div>
 );
 
 const columns = [
@@ -56,11 +49,21 @@ class People extends React.Component {
 
   render() {
     return (
-      <div>
-        <Logo />
-        <CharacterFrequency className="hidden" people={this.state.people} />
-        <ReactTable data={this.state.people} columns={columns} />
-      </div>
+      <Grid>
+        <Row className="show-grid centered">
+          <Col xs={12} md={12} lg={12}>
+            <Logo />
+          </Col>
+        </Row>
+        <Row className="show-grid">
+          <Col xs={4} md={4} lg={6}>
+            <CharacterFrequency className="hidden" people={this.state.people} />
+          </Col>
+          <Col xs={4} md={4} lg={6}>
+            <ReactTable data={this.state.people} columns={columns} />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

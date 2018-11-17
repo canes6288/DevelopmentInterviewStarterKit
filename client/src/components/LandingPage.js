@@ -3,25 +3,19 @@ import styled from 'styled-components';
 
 import { ConnectedNavBar } from '../containers/ConnectedNavBar';
 import People from './People';
-
-const Page = styled.div`
-  display: grid;
-  grid-template 46px 1fr / 1fr;
-  height: 100%;
-  width: 100%;
-`;
-
-const FlexBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import { Grid, Row, Col } from 'react-bootstrap';
 
 export const LandingPage = () => (
-  <Page>
-    <ConnectedNavBar />
-    <FlexBox>
-      <People />
-    </FlexBox>
-  </Page>
+  <Grid>
+    <Row className="nav-bar">
+      <Col xs={12} md={12} lg={12}>
+        <ConnectedNavBar />
+      </Col>
+    </Row>
+    <Row className="body">
+      <Col xs={6} md={6} lg={6}>
+        <People />
+      </Col>
+    </Row>
+  </Grid>
 );
