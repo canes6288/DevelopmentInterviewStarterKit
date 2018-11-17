@@ -11,17 +11,18 @@ const Button = styled.div`
   align-items: center;
   overflow: hidden;
   border-radius: 7px;
-  border 2px solid #4a90e2;
+  border 2px solid #DCDCDC;
   justify-content: center;
   font-size: 25px;
   font-weight: bold;
-  background-color: #4a90e2;
+  color: #000000
+  background-color: #FFFFFF;
 `;
 
 const columns = [
   {
     Header: 'Character',
-    accessor: 'character' // String-based value accessors!
+    accessor: 'character'
   },
   {
     Header: 'Frequency',
@@ -30,7 +31,39 @@ const columns = [
 ];
 
 class CharacterFrequency extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showFrequencyTable: false
+    };
+
+    this.handleIndexClick = this.handleIndexClick.bind(this);
+  }
+
+  handleIndexClick() {
+    this.setState({
+      showFrequencyTable: true
+    });
+  }
+
   render() {
+    const CharacterFrequencyButton = () => (
+      <Button className={this.state.showFrequencyTable ? 'hidden' : ''}>
+        <div
+          onClick={this.handleIndexClick}
+          role="show email character frequency table"
+          style={{
+            textDecoration: 'none',
+            color: '#000000',
+            cursor: 'pointer'
+          }}
+        >
+          Show Email Character Frequency
+        </div>
+      </Button>
+    );
+
     const { people } = this.props;
 
     const counter = {};
@@ -53,7 +86,16 @@ class CharacterFrequency extends React.Component {
 
     data = sortBy(data, ['frequency']).reverse();
 
-    return <ReactTable data={data} columns={columns} />;
+    return (
+      <div>
+        <CharacterFrequencyButton />
+        <ReactTable
+          className={this.state.showFrequencyTable ? '' : 'hidden'}
+          data={data}
+          columns={columns}
+        />
+      </div>
+    );
   }
 }
 

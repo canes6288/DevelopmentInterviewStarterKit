@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const NAV_HEIGHT = 46;
 const AVATAR_HEIGHT = 40;
@@ -39,20 +39,24 @@ const Badge = styled.div`
 
 let SignInBadge = () => (
   <Badge>
-    <a href='/users/auth/salesloft' style={{textDecoration: 'none'}}><NavText>Login</NavText></a>
+    <a href="/users/auth/salesloft" style={{ textDecoration: 'none' }}>
+      <NavText>Login</NavText>
+    </a>
   </Badge>
 );
 
-let UserBadge = ({user}) => (
+let UserBadge = ({ user }) => (
   <Badge>
-    <a href='/users/auth/logout' style={{textDecoration: 'none'}}><NavText>{user.name}</NavText></a>
+    <a href="/users/auth/logout" style={{ textDecoration: 'none' }}>
+      <NavText>{user.name}</NavText>
+    </a>
   </Badge>
 );
 
-let NavBar = ({user}) => (
+let NavBar = ({ user }) => (
   <StyledNavBar>
     {user ? <UserBadge user={user} /> : <SignInBadge />}
   </StyledNavBar>
 );
 
-export default NavBar
+export default NavBar;
