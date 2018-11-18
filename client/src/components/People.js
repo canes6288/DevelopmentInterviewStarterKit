@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import ReactTable from 'react-table';
 import CharacterFrequencyTable from './CharacterFrequencyTable';
+import DuplicateTable from './DuplicateTable';
 import { Grid, Row, Col } from 'react-bootstrap';
 import Logo from './Logo';
 
@@ -59,10 +60,7 @@ class People extends React.Component {
             />
           </Col>
           <Col xs={6} md={4} lg={4}>
-            <CharacterFrequencyTable
-              className="hidden"
-              people={this.state.people}
-            />
+            <DuplicateTable className="hidden" people={this.state.people} />
           </Col>
         </Row>
       </Grid>
