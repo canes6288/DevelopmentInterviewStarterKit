@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { ConnectedNavBar } from '../containers/ConnectedNavBar';
 import People from './People';

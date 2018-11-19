@@ -55,16 +55,20 @@ class CharacterFrequencyTable extends React.Component {
 
     return (
       <div>
-        <Button
-          onClick={this.handleIndexClick}
-          className={this.state.showFrequencyTable ? 'hidden' : ''}
-          text="Show Email Character Frequency"
-        />
-        <ReactTable
-          className={this.state.showFrequencyTable ? '' : 'hidden'}
-          data={data}
-          columns={columns}
-        />
+        <div data-testid="character-frequency-button">
+          <Button
+            onClick={this.handleIndexClick}
+            className={this.state.showFrequencyTable ? 'hidden' : ''}
+            text="Show Email Character Frequency"
+          />
+        </div>
+        <div data-testid="character-frequency-table">
+          <ReactTable
+            className={this.state.showFrequencyTable ? '' : 'hidden'}
+            data={data}
+            columns={columns}
+          />
+        </div>
       </div>
     );
   }

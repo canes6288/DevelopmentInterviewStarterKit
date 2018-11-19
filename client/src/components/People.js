@@ -50,9 +50,11 @@ class People extends React.Component {
           </Col>
         </Row>
         <Row className="tables">
-          <Col xs={6} md={4} lg={4}>
-            <ReactTable data={this.state.people} columns={columns} />
-          </Col>
+          <div data-testid="people-table">
+            <Col xs={6} md={4} lg={4}>
+              <ReactTable data={this.state.people} columns={columns} />
+            </Col>
+          </div>
           <Col xs={6} md={4} lg={4}>
             <CharacterFrequencyTable
               className="hidden"

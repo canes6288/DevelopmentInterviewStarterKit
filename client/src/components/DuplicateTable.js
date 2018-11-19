@@ -56,34 +56,36 @@ class DuplicateTable extends React.Component {
     const duplicates = {};
 
     people.forEach(function(person) {
-      let userId = person.id;
-      let phone = person.phone.replace(/\D/g, '');
+      const userId = person.id;
+      const phone = person.phone.replace(/\D/g, '');
 
       allPhoneNumbers.forEach(function(otherPhoneNumber) {
-        if (phone != otherPhoneNumber) {
-          if (isPotentialDuplicate(phone, otherPhoneNumber)) {
-            duplicates.userId = userId;
-            duplicates.phone = phone;
-            duplicates.duplicateNumber = otherPhoneNumber;
-          }
+        if (isPotentialDuplicate(phone, otherPhoneNumber)) {
+          duplicates.userId = userId;
+          duplicates.phone = phone;
+          duplicates.duplicateNumber = otherPhoneNumber;
         }
       });
     });
 
-    let data = [duplicates];
+    const data = [duplicates];
 
     return (
       <div>
-        <Button
-          onClick={this.handleIndexClick}
-          className={this.state.showDuplicateTable ? 'hidden' : ''}
-          text="Show Potential Duplicates based on Phone Numbers"
-        />
-        <ReactTable
-          className={this.state.showDuplicateTable ? '' : 'hidden'}
-          data={data}
-          columns={columns}
-        />
+        <div data-testid="duplicate-button">
+          <Button
+            onClick={this.handleIndexClick}
+            className={this.state.showDuplicateTable ? 'hidden' : ''}
+            text="Show Potential Duplicates based on Phone Numbers"
+          />
+        </div>
+        <div data-testid="duplicate-table">
+          <ReactTable
+            className={this.state.showDuplicateTable ? '' : 'hidden'}
+            data={data}
+            columns={columns}
+          />
+        </div>
       </div>
     );
   }
