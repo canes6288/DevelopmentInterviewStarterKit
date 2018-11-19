@@ -4,8 +4,8 @@ import Button from './Button';
 
 const columns = [
   {
-    Header: 'User ID',
-    accessor: 'userId'
+    Header: 'Email',
+    accessor: 'emailAddress'
   },
   {
     Header: "User's Phone Number",
@@ -13,20 +13,51 @@ const columns = [
   },
   {
     Header: 'Duplicate Phone Number',
-    accessor: 'phone'
+    accessor: 'duplicateNumber'
   }
 ];
 
-function isPotentialDuplicate(phone, otherPhoneNumber) {
+function isExactDuplicate(
+  personsPhone,
+  potentialDuplicatePhone,
+  allPhoneNumbers
+) {
+  let numberOfOccurences = 0;
+
+  if (personsPhone == potentialDuplicatePhone) {
+    numberOfOccurences = allPhoneNumbers.filter(function(phone) {
+      return phone == personsPhone;
+    });
+  }
+
+  return numberOfOccurences.length > 1;
+}
+
+function isLikelyDuplicate(personsPhone, potentialDuplicatePhone) {
+  if (personsPhone == potentialDuplicatePhone) {
+    return false;
+  }
+
   let numberOfMatchedDigits = 0;
 
-  for (var i = 0; i < phone.length; i++) {
-    if (phone[i] === otherPhoneNumber[i]) {
+  for (var i = 0; i < personsPhone.length; i++) {
+    if (personsPhone[i] === potentialDuplicatePhone[i]) {
       numberOfMatchedDigits++;
     }
   }
 
-  return numberOfMatchedDigits >= phone.length - 3;
+  return numberOfMatchedDigits >= personsPhone.length - 3;
+}
+
+function isPotentialDuplicate(
+  personsPhone,
+  potentialDuplicatePhone,
+  allPhoneNumbers
+) {
+  return (
+    isExactDuplicate(personsPhone, potentialDuplicatePhone, allPhoneNumbers) ||
+    isLikelyDuplicate(personsPhone, potentialDuplicatePhone)
+  );
 }
 
 class DuplicateTable extends React.Component {
@@ -53,22 +84,24 @@ class DuplicateTable extends React.Component {
       .map(person => person.phone)
       .map(phoneNumber => phoneNumber.replace(/\D/g, ''));
 
-    const duplicates = {};
+    const duplicates = [];
 
     people.forEach(function(person) {
-      const userId = person.id;
+      const emailAddress = person.email_address;
       const phone = person.phone.replace(/\D/g, '');
 
-      allPhoneNumbers.forEach(function(otherPhoneNumber) {
-        if (isPotentialDuplicate(phone, otherPhoneNumber)) {
-          duplicates.userId = userId;
-          duplicates.phone = phone;
-          duplicates.duplicateNumber = otherPhoneNumber;
+      allPhoneNumbers.forEach(function(potentialDuplicatePhone) {
+        if (
+          isPotentialDuplicate(phone, potentialDuplicatePhone, allPhoneNumbers)
+        ) {
+          duplicates.push({
+            emailAddress: emailAddress,
+            phone: phone,
+            duplicateNumber: potentialDuplicatePhone
+          });
         }
       });
     });
-
-    const data = [duplicates];
 
     return (
       <div>
@@ -82,7 +115,7 @@ class DuplicateTable extends React.Component {
         <div data-testid="duplicate-table">
           <ReactTable
             className={this.state.showDuplicateTable ? '' : 'hidden'}
-            data={data}
+            data={duplicates}
             columns={columns}
           />
         </div>
