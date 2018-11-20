@@ -1,3 +1,17 @@
+# Note to Reviewers
+
+I really enjoyed this project. I started from zero React knowledge, and after 10 hours of training (Frontend Masters is the best) I was able to complete the assessment.
+
+- What I'm proud of:
+	- I was able to complete this assignment without any prior knowledge of React
+	- I implemented Cypress.io and Jest for testing
+	- I was able to complete all 3 levels of the code assessment
+
+- What I would improve:
+	- I would implement more Jest unit tests
+	- Focus more time on refactoring the current code base
+	- Implement PropTypes in the components
+
 # SalesLoft Development Interview Starter Kit
 
 This application is a jumping off point for the SalesLoft Development Interview,
